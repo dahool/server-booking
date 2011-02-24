@@ -7,7 +7,7 @@ TIME_ZONE = 'America/Argentina/Buenos_Aires'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'es'
+LANGUAGE_CODE = 'en'
 
 gettext = lambda s: s
 
@@ -25,12 +25,12 @@ DATETIME_FORMAT = 'M, d Y - H:i'
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(PROJECT_PATH, 'webmedia')
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'sitemedia')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = '/webmedia/'
+MEDIA_URL = '/sitemedia/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.

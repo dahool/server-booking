@@ -1,43 +1,18 @@
 DATABASES = {
     'default': {
-        'NAME': 'b3',
+        'NAME': 'booking',
         'ENGINE': 'django.db.backends.mysql',
-        'USER': 'b3',
-        'PASSWORD': 'b3user',
-        'HOST': '166.40.231.124',
-    },
-    'server2': {
-        'NAME': 'b3_2',
-        'ENGINE': 'django.db.backends.mysql',
-        'USER': 'b3',
-        'PASSWORD': 'b3user',
-        'HOST': '166.40.231.124',
+        'USER': 'booking',
+        'PASSWORD': 'booking',
+        'HOST': '192.168.1.55',
     },
     'phpbb': {
         'NAME': 'phpbb',
         'ENGINE': 'django.db.backends.mysql',
         'USER': 'phpbb',
         'PASSWORD': 'phpbb',
-        'HOST': '166.40.231.124',
+        'HOST': '192.168.1.115',
     }
 }
-
-SERVERS = {
-    'default': {
-        'TITLE': 'COD1',
-        'STATUS': os.path.join(PROJECT_PATH,'test','status.xml'),
-        'CFG': os.path.join(PROJECT_PATH,'test','b3.xml'),
-        'BANLIST': os.path.join(PROJECT_PATH,'test','banlist.txt'),
-        'MAPCYCLE': os.path.join(PROJECT_PATH,'test','maps.txt'),
-    },       
-    'server2': {
-        'TITLE': 'COD2',
-        'STATUS': os.path.join(PROJECT_PATH,'test','status2.xml'),
-        'BANLIST': os.path.join(PROJECT_PATH,'test','banlist.txt'),
-        'MAPCYCLE': os.path.join(PROJECT_PATH,'test','maps.txt'),
-    }
-}
-
-DISABLED_PLUGINS['server2'] = ['flagstats','knifestats','hestats']
 
 PHPBB_COOKIE_NAME = 'phpbb3_q82vd'

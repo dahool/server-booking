@@ -1,2 +1,0 @@
-# ['chatlog','follow','flagstats','hestats','knifestats','status']
-DISABLED_PLUGINS = {'default': []}

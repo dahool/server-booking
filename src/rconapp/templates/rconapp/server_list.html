@@ -1,0 +1,17 @@
+{% extends "base_layout.html" %}
+{% load i18n paginator %}
+{% block title %}{{block.super}} | {% trans "Registered Servers" %}{% endblock %}
+{% block main_content %}
+<h3>{% trans "Registered Servers" %}</h3>
+<div class="simple">
+{% for server in servers.object_list %}
+<div class="entry-list">
+    <p class="title"><a href="{{ server.get_absolute_url }}">{{ server.name }}</a></p>
+    <div class="description">/connect {{server.ip}}:{{server.port}}</div>
+</div>
+{% endfor %}
+</div>
+{% paginatepage servers %}
+{% endblock %}
+
+

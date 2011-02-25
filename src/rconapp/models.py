@@ -29,7 +29,7 @@ class Server(models.Model):
     name = models.CharField(max_length=50, unique=True, verbose_name=_('Name')) 
     ip = models.IPAddressField(verbose_name=_('IP Address'))
     port = models.IntegerField(verbose_name=_('Port'), default=27960)
-    password = models.CharField()
+    password = models.CharField(max_length=50)
     admin = models.EmailField(verbose_name=_('Contact e-mail'))
     created = models.DateTimeField(auto_now_add=True, editable=False)
     updated = models.DateTimeField(auto_now=True, auto_now_add=True, editable=False)
@@ -57,4 +57,4 @@ class Server(models.Model):
     
     @permalink
     def get_absolute_url(self):
-        return ('server_detail', None, { 'id': self.id })    
+        return ('server_detail', None, { 'slug': self.slug })    

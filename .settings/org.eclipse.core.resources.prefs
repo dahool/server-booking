@@ -1,7 +1,7 @@
-#Thu Feb 24 17:33:21 ARST 2011
+#Thu Feb 24 21:49:05 ART 2011
 eclipse.preferences.version=1
-encoding//src/b3connect/console/client.py=utf-8
 encoding//src/common/floodprotection/admin.py=utf-8
 encoding//src/phpbb_auth/models.py=utf-8
+encoding//src/q3console/console/client.py=utf-8
 encoding//src/rconapp/models.py=utf-8
 encoding//src/urls.py=utf-8

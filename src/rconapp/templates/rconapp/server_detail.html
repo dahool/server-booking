@@ -1,0 +1,6 @@
+{% extends "base_layout.html" %}
+{% load i18n formtags %}
+{% block title %}{{ block.super }} | {{server.name}}{% endblock %}
+{% block main_content %}
+<h3>{{server.name}}</h3>
+{% endblock %}

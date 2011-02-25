@@ -1,30 +1,30 @@
 from django.conf.urls.defaults import *
-from views import *
+from views import server as server_views
 
 urlpatterns = patterns('',
     url(
         regex = '^add/$',
-        view = server_create_update,
+        view = server_views.server_create_update,
         name = 'server_create'),
     url(
-        regex = '^(?P<slug>[-\w]+)/edit/$',
-        view = server_create_update,
+        regex = '^edit/(?P<slug>[-\w]+)/$',
+        view = server_views.server_create_update,
         name = 'server_edit',),
     url(
-        regex = '^(?P<slug>[-\w]+)/delete/$',
-        view = server_delete,
+        regex = '^delete/(?P<slug>[-\w]+)/$',
+        view = server_views.server_delete,
         name = 'server_delete',),
+    url (
+        regex = '^$',
+        view = server_views.server_list,
+        name = 'server_list'),        
 ) 
 
 urlpatterns += patterns('django.views.generic',
     url(
-        regex = '^(?P<slug>[-\w]+)/$',
-        view = server_detail,
+        regex = '^details/(?P<slug>[-\w]+)/$',
+        view = server_views.server_detail,
         name = 'server_detail'),
-    url (
-        regex = '^$',
-        view = server_list,
-        name = 'server_list'),
 )
 #
 #urlpatterns = patterns('',

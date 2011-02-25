@@ -1,3 +1,5 @@
 SITE_NAME = 'UrT Server Booking'
 VERSION = '0.1.0'
 APP_NAME = 'UrT Server Booking'
+
+SERVERS_PER_PAGE = 5

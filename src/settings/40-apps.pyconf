@@ -25,7 +25,7 @@ MIDDLEWARE_CLASSES = (
     'common.middleware.locale.LocaleMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'phpbb_auth.middleware.bbRemoteUserMiddleware',
+    #'phpbb_auth.middleware.bbRemoteUserMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'common.middleware.http.HttpErrorMiddleware',
@@ -39,6 +39,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.messages',
+    'djangoapp',
+    'rconapp',
 )
 
-ROOT_URLCONF = 'server-booking.urls'
+ROOT_URLCONF = 'urls'

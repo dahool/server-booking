@@ -1,10 +1,10 @@
 DATABASES = {
     'default': {
-        'NAME': 'booking.db.sqlite',
-        'ENGINE': 'django.db.backends.sqlite3',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
+        'NAME': 'booking',
+        'ENGINE': 'django.db.backends.mysql',
+        'USER': 'booking',
+        'PASSWORD': 'booking',
+        'HOST': '192.168.1.55',
     },
 }
 

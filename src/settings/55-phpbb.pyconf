@@ -8,3 +8,5 @@
 #PHPBB_GROUP_MAPPING =  {'ADMINISTRATORS':'bbAdmin',
 #                        'GLOBAL_MODERATORS': 'bbServerAdmin',
 #                        'Server Admin':'bbServerAdmin'}
+#
+#PHPBB_COOKIE_NAME = 'phpbb3_q82vd'

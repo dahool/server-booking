@@ -1,18 +1,10 @@
-DATABASES = {
-    'default': {
-        'NAME': 'booking',
-        'ENGINE': 'django.db.backends.mysql',
-        'USER': 'booking',
-        'PASSWORD': 'booking',
-        'HOST': '192.168.1.55',
-    },
-    'phpbb': {
-        'NAME': 'phpbb',
-        'ENGINE': 'django.db.backends.mysql',
-        'USER': 'phpbb',
-        'PASSWORD': 'phpbb',
-        'HOST': '192.168.1.115',
-    }
-}
-
-PHPBB_COOKIE_NAME = 'phpbb3_q82vd'
+# SET HERE ALL YOUR LOCAL SETTINGS
+#DATABASES = {
+#    'default': {
+#        'NAME': 'booking',
+#        'ENGINE': 'django.db.backends.mysql',
+#        'USER': 'booking',
+#        'PASSWORD': 'booking',
+#        'HOST': '166.40.231.124',
+#    },
+#}

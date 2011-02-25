@@ -1,0 +1,109 @@
+{% load i18n %}
+<table>
+{% if perms.rconapp.change_nextmap %}
+<tr>
+<td>{% trans "Next map" %}</td>
+<td>
+<select name="nextmap">
+{% for map in maps %}
+<option value="{{map}}">{{map}}</option>
+{% endfor %}
+</select>
+<input type="button" class="command_get green" alt="nextmap" value="{% trans "Get" %}">
+<input type="button" class="command_set red" alt="nextmap" value="{% trans "Set" %}">
+</td>
+</tr>
+{% endif %}
+{% if perms.rconapp.change_map %}
+<tr>
+<td>{% trans "Map" %}</td>
+<td>
+<select name="map">
+{% for map in maps %}
+<option value="{{map}}">{{map}}</option>
+{% endfor %}
+</select>
+<input type="button" class="command_get green" alt="map" value="{% trans "Get" %}">
+<input type="button" class="command_set red" alt="map" value="{% trans "Set" %}">
+</td>
+</tr>
+{% endif %}
+{% if perms.rconapp.change_password %}
+<tr>
+<td>{% trans "Password" %}</td>
+<td>
+<input type="text" name="password">
+<input type="button" class="command_get green" alt="password" value="{% trans "Get" %}">
+<input type="button" class="command_set red" alt="password" value="{% trans "Set" %}">
+</td>
+</tr>
+{% endif %}
+{% if perms.rconapp.change_gametype %}
+<tr>
+<td>{% trans "Game Type" %}</td>
+<td>
+<select name="gametype">
+	<option value="ffa">{% trans "Free For All" %}</option>
+	<option value="tdm">{% trans "Team DeathMatch" %}</option>
+	<option value="ts">{% trans "Team Survivor" %}</option>
+	<option value="ftl">{% trans "Follow the Leader" %}</option>
+	<option value="cah">{% trans "Capture and Hold" %}</option>
+	<option value="ctf">{% trans "Capture The Flag" %}</option>
+	<option value="bomb">{% trans "Bomb" %}</option>
+</select>
+<input type="button" class="command_get green" alt="gametype" value="{% trans "Get" %}">
+<input type="button" class="command_set red" alt="gametype" value="{% trans "Set" %}">
+</td>
+</tr>
+{% endif %}
+{% if perms.rconapp.send_say %}
+<tr>
+<td>{% trans "Say" %}</td>
+<td>
+<input type="text" name="say">
+<input type="button" class="command_set" alt="say" value="{% trans "Send" %}">
+</td>
+</tr>
+{% endif %}
+{% if perms.rconapp.send_bigtext %}
+<tr>
+<td>{% trans "Big Text" %}</td>
+<td>
+<input type="text" name="bigtext">
+<input type="button" class="command_set" alt="bigtext" value="{% trans "Send" %}">
+</td>
+</tr>
+{% endif %}
+{% if perms.rconapp.reload_map %}
+<tr>
+<td>{% trans "Reload Map" %}</td>
+<td>
+<input type="button" class="command_set blue" alt="reloadmap" value="{% trans "Apply" %}">
+</td>
+</tr>
+{% endif %}
+{% if perms.rconapp.write_console %}
+<tr>
+<td>{% trans "Console" %}</td>
+<td>
+<input type="text" name="write">
+<input type="button" class="command_set" alt="write" value="{% trans "Write" %}">
+</td>
+</tr>
+{% endif %}
+{% if perms.rconapp.change_cvar %}
+<tr>
+<td>{% trans "Cvar" %}</td>
+<td>
+<input type="text" name="cvar">
+<input type="button" class="command_get green" alt="cvar" value="{% trans "Get" %}">
+<input type="button" class="command_set red" alt="cvar" value="{% trans "Set" %}">
+</td>
+</tr>
+{% endif %}
+<tr>
+<td colspan="2">
+<div id="response">{% trans "Ready." %}</div>
+</td>
+</tr>
+</table>

@@ -1,9 +1,7 @@
 import re
-
 from django.conf import settings
 
-from b3connect.console.client import B3Client
-from b3connect.models import Client
+from q3console.console.client import B3Client
 
 color_re = re.compile(r'\^[0-9]')
 
@@ -37,14 +35,6 @@ class ServerInfo(object):
         list = self.client.console.getPlayerList()
         for p in list.itervalues():
             po = PlayerObject(p)
-            try:
-                c = Client.objects.using(self.dbserver).get(name__exact=po.name,ip__exact=po.ip)
-            except Client.DoesNotExist:
-                self.players.append(po)
-            except:
-                raise
-            else:
-                po.copy_attrs(c)
-                self.players.append(c)
+            self.players.append(po)
         self.totalPlayers = len(self.players)        
         return self.players

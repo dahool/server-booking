@@ -54,7 +54,21 @@ class Server(models.Model):
     class Meta:
         ordering  = ('name',)
         get_latest_by = 'created'    
-    
+        permissions = (
+            ("change_map", _("Can change map")),
+            ("change_nextmap", _("Can change next map")),
+            ("change_password", _("Can change password")),
+            ("change_gametype", _("Can change gametype")),
+            ("send_say", _("Can send console message")),
+            ("send_bigtext", _("Can execute bigtext")),
+            ("reload_map", _("Can reloap map")),
+            ("write_console", _("Can write to console")),
+            ("change_cvar", _("Can change cvars")),
+            ("view_online", _("Can view online clients")),
+            ("kick_client", _("Can kick client")),
+            ("slap_client", _("Can slap client")),
+        )
+        
     @permalink
     def get_absolute_url(self):
         return ('server_detail', None, { 'slug': self.slug })    

@@ -24,6 +24,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'common.middleware.locale.LocaleMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'common.middleware.defaultuser.DefaultLoggedUser', # REMOVE
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     #'phpbb_auth.middleware.bbRemoteUserMiddleware',
     'django.middleware.common.CommonMiddleware',

@@ -6,3 +6,6 @@ Edit settings/60-local.pyconf for database settings.
 Run python manage.py syncdb to setup database.
 Run python manage.py runserver to start dev server and point browser to http://127.0.0.1:8000/
 
+For quick testing purpose common.middleware.defaultuser.DefaultLoggedUser is active.
+Use DEFAULT_USER and DEFAULT_USER_PASS in settings to change test user.
+Remember to remove this middleware. 

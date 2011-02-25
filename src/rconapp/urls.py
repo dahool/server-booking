@@ -1,31 +1,45 @@
 from django.conf.urls.defaults import *
 from views import server as server_views
+from views import rcon as rcon_views
 
+# --- SERVER VIEWS --------
 urlpatterns = patterns('',
     url(
         regex = '^add/$',
         view = server_views.server_create_update,
         name = 'server_create'),
     url(
-        regex = '^edit/(?P<slug>[-\w]+)/$',
+        regex = '^(?P<slug>[-\w]+)/edit/$',
         view = server_views.server_create_update,
         name = 'server_edit',),
     url(
-        regex = '^delete/(?P<slug>[-\w]+)/$',
+        regex = '^(?P<slug>[-\w]+)/delete/$',
         view = server_views.server_delete,
         name = 'server_delete',),
     url (
         regex = '^$',
         view = server_views.server_list,
-        name = 'server_list'),        
+        name = 'server_list'),   
 ) 
-
 urlpatterns += patterns('django.views.generic',
     url(
-        regex = '^details/(?P<slug>[-\w]+)/$',
+        regex = '^(?P<slug>[-\w]+)/details/$',
         view = server_views.server_detail,
         name = 'server_detail'),
 )
+
+# --- RCON VIEWS --------
+urlpatterns += patterns('',
+    url(
+        regex = '^(?P<slug>[-\w]+)/rcon/$',
+        view = rcon_views.home,
+        name = 'rcon_home',),
+    url(
+        regex = '^(?P<slug>[-\w]+)/rcon/execute/$',
+        view = rcon_views.home,
+        name = 'rcon_command',),        
+)
+
 #
 #urlpatterns = patterns('',
 #    url(r'^$', views.home, name='game_admin'),

@@ -17,60 +17,28 @@ from common.shortcuts import get_object_or_404
 from common.decorators import superuser_required
 from common.middleware.exceptions import Http403
 
-from q3console.console.client import B3Client
-from q3console.console.serverinfo import ServerInfo
-
 from rconapp.models import Server
+from q3console.urtconsole import UrtClient
+
+class Status(object):
+    pass
 
 @render('rconapp/rcon/home.html')
 def home(request, slug):
     server = get_object_or_404(Server, slug=slug)
-    #clients = _client_list(request)
-    #status = _status(request)
-    return {'server': server}
-
-def _status(request):
-    status = {}
-    server = request.session.get('server')
-    cfgfile = settings.SERVERS[server]['CFG']
-    try:
-        c = B3Client(cfgfile)
-    except:
-        pass
-    else:
-        status['map'] = c.console.getMap()
-        status['type'] = c.gametype(data=None, action='get')
-    return status
+    console = UrtClient(server.host, server.rconpassword)
+    status = Status()
+    status.gametype =console.get_gametype()
+    status.map = console.get_map()
+    return {'server': server,
+            'status': status}
     
 @superuser_required
 @render('webfront/admin/status.html')
 def refresh_status(request):
-    status = _status(request)
+    status = None
     return {'status': status}
-    
-@superuser_required
-@render('webfront/admin/clients.html')
-def refresh_clients(request):
-    clients = _client_list(request, False)
-    return {'clients': clients}
                 
-def _client_list(request, m=True):
-    s = None
-    try:
-        s = ServerInfo(request.session.get('server'))
-    except:
-        # try again
-        time.sleep(1)
-    try:
-        if not s:
-            s = ServerInfo(request.session.get('server'))
-        clients = s.getPlayerList()
-    except Exception, e:
-        if m:
-            messages.error(request, _('Error: %s') % str(e))
-        clients=[]
-    return clients
-    
 @superuser_required    
 def execute(request):
     if request.method != 'POST':
@@ -78,7 +46,7 @@ def execute(request):
     server = request.session.get('server')
     cfgfile = settings.SERVERS[server]['CFG']
     try:
-        c = B3Client(cfgfile)
+        c = None
     except Exception, e:
         res = str(e)
     else:

@@ -23,7 +23,7 @@ class ServerForm(forms.ModelForm):
         server = super(ServerForm, self).save(commit=False)
         rp = self.cleaned_data['password']
         if rp != PASS_DEFAULT:
-            server.set_password(rp)
+            server.rconpassword = rp
         if commit:
             server.save()
         return server

@@ -40,16 +40,18 @@ class Server(models.Model):
     def __repr__(self):
         return '<Server: %s>' % self.name
         
-    def set_password(self, clear_text):
+    def _set_password(self, clear_text):
         bc = BCipher()
         setattr(self, 'password', bc.encrypt(clear_text))
-
-    def get_password(self):
+    
+    def _get_password(self):
         value = getattr(self, 'password')
         if value is not None:
             bc = BCipher()
             return bc.decrypt(value)
         return value
+    
+    rconpassword = property(_get_password, _set_password)
     
     class Meta:
         ordering  = ('name',)
@@ -68,7 +70,11 @@ class Server(models.Model):
             ("kick_client", _("Can kick client")),
             ("slap_client", _("Can slap client")),
         )
-        
+    
+    @property
+    def host(self):
+        return "%s:%s" % (self.ip, self.port)
+    
     @permalink
     def get_absolute_url(self):
         return ('server_detail', None, { 'slug': self.slug })    

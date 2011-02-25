@@ -3,7 +3,7 @@
 {% block title %}{{block.super}} | {% trans "Registered Servers" %}{% endblock %}
 {% block main_content %}
 <h3>{% trans "Registered Servers" %}</h3>
-<div class="simple">
+<div class="list">
 {% for server in servers.object_list %}
 <div class="entry-list">
     <p class="title"><a href="{{ server.get_absolute_url }}">{{ server.name }}</a></p>
@@ -13,5 +13,3 @@
 </div>
 {% paginatepage servers %}
 {% endblock %}
-
-

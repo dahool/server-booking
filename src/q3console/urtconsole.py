@@ -1,5 +1,5 @@
 import re
-from q3console.pyquake3 import PyQuake3
+from q3console.pyiourt import PyIoUrt as Console
     
 class UrtClient(object):
 
@@ -24,12 +24,16 @@ class UrtClient(object):
     def __init__(self, host, rconpassword):
         self.host = host
         self.rconpassword = rconpassword
-        self.console = PyQuake3(host, rconpassword)
+        self.console = Console(host, rconpassword)
         self.console.update()
 
     def getservername(self):
         return self.get_cvar("sv_hostname")
         
+    def player_list(self):
+        self.console.rcon_update()
+        return self.console.players
+    
     def _clean_colors(self, text):
         if text:
             return self.color_re.sub('',text)

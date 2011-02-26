@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 import socket
 import re
 
-class Player:
+class Player(object):
 	def __init__(self, name, frags, ping, address=None, bot=-1):
 		self.name = name
 		self.frags = frags
@@ -33,7 +33,7 @@ class Player:
 	def __repr__(self):
 		return str(self)
 
-class PyQuake3:
+class PyQuake3(object):
 	packet_prefix = '\xff' * 4
 	player_reo = re.compile(r'^(\d+) (\d+) "(.*)"')
 	def __init__(self, server, rcon_password=''):

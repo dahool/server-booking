@@ -26,6 +26,7 @@ class Status(object):
 @render('rconapp/rcon/home.html')
 def home(request, slug):
     server = get_object_or_404(Server, slug=slug)
+    # TODO: cachear exception en caso de no poder conectar.
     console = UrtClient(server.host, server.rconpassword)
     status = Status()
     status.gametype =console.get_gametype()

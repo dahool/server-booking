@@ -38,8 +38,8 @@ class PyIoUrt(PyQuake3):
     _regPlayer = re.compile(r'^(?P<slot>[0-9]+)\s+(?P<score>[0-9-]+)\s+(?P<ping>[0-9]+|CNCT|ZMBI)\s+(?P<name>.*?)\s+(?P<last>[0-9]+)\s+(?P<ip>[0-9.]+):(?P<port>[0-9-]+)\s+(?P<qport>[0-9]+)\s+(?P<rate>[0-9]+)$', re.I)
     _regColor = re.compile(r'\^[0-9]')
     
-    def parse_status(self, data):
-        pass
+#    def parse_players(self, data):
+#        pass
     
     def rcon_update(self):
         cmd, data = self.rcon('status')

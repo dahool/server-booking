@@ -10,15 +10,22 @@ var POST_URL = "{% url rcon_command server.slug %}";
 {% endblock%}
 {% block main_content %}
 <h3>{% trans "RCON" %}</h3>
-<input type="button" class="red" style="float: right;" onclick="do_call_get('{-% url admin_refresh_status %-}','status')" value="{% trans "Refresh" %}">
+<input type="button" class="red" style="float: right;" onclick="do_call_post('{% url rcon_refresh_status server.slug %}','status')" value="{% trans "Refresh" %}">
 <div id="status">
 {% include "rconapp/rcon/status.html" %} 
 </div>
 <div id="commands">
-{% include "rconapp/rcon/commands.html" %}
+{% include "rconapp/rcon/commands2.html" %}
 </div>
 {% if perms.rconapp.view_online %}
-<input type="button" class="red" style="float: right;" onclick="do_call_get('{-% url admin_refresh_clients %-}','clients')" value="{% trans "Refresh" %}">
+<script type="text/javascript">
+$(document).ready(
+    function() {
+        do_call_post('{% url rcon_refresh_clients server.slug %}','clients');
+    }
+);
+</script>
+<input type="button" class="red" style="float: right;" onclick="do_call_post('{% url rcon_refresh_clients server.slug %}','clients')" value="{% trans "Refresh" %}">
 <div id="clients">
 {% include "rconapp/rcon/clients.html" %}
 </div>

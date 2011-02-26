@@ -1,3 +1,22 @@
+# -*- coding: utf-8 -*-
+"""Copyright (c) 2009, Sergio Gabriel Teves
+All rights reserved.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+"""
+
 from django import template
 from django.template import Node, Template, Context, NodeList, VariableDoesNotExist, resolve_variable, TemplateSyntaxError
 from django.utils.encoding import smart_str
@@ -12,7 +31,7 @@ def do_ifinlist(parser, token, negate):
     end_tag = 'end' + bits[0]
     nodelist_true = parser.parse(('else', end_tag))
     token = parser.next_token()
-    if token.contents == 'else':
+    if token.contents == 'else':2011
         nodelist_false = parser.parse((end_tag,))
         parser.delete_first_token()
     else:

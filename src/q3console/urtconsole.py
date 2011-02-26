@@ -1,3 +1,22 @@
+# -*- coding: utf-8 -*-
+"""Copyright (c) 2011, Sergio Gabriel Teves
+All rights reserved.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+"""
+
 import re
 from q3console.pyiourt import PyIoUrt as Console
     
@@ -25,14 +44,29 @@ class UrtClient(object):
         self.host = host
         self.rconpassword = rconpassword
         self.console = Console(host, rconpassword)
+        self.players = None
+        # test connection
         self.console.update()
+        
+    def check_rcon(self):
+        """
+        check if rcon password is valid
+        """
+        try:
+            self.console.rcon('status')
+        except:
+            return False
+        return True
 
     def getservername(self):
         return self.get_cvar("sv_hostname")
         
-    def player_list(self):
+    def get_player_list(self, force = False):
+        if self.players and not force:
+            return self.players
         self.console.rcon_update()
-        return self.console.players
+        self.players = self.console.players 
+        return self.players
     
     def _clean_colors(self, text):
         if text:
@@ -46,7 +80,7 @@ class UrtClient(object):
     
     def get_cvar(self, data):
         try:
-            return self._clean_colors(self.console.vars[self._normalize(data)])
+            return self._clean_colors(self.console.vars[data])
         except IndexError:
             return None
 
@@ -64,7 +98,7 @@ class UrtClient(object):
 
     def restartmap(self):
         data = self.write('restart')
-        return data
+        return None
     
     def reloadmap(self):
         data = self.write('reload')
@@ -108,5 +142,8 @@ class UrtClient(object):
         self.set_cvar('g_gametype', self._gametype_rev[data])
         
     def get_gametype(self):
-        return self._gametype[self.get_cvar('g_gametype')]
+        c = self.get_cvar('g_gametype')
+        if c:
+            return self._gametype[c] 
+        return 'Unknown'
         

@@ -11,9 +11,10 @@ function send_command(cmd, action) {
 	if (d) {
 		data = d.val();
 	} else {
-		data = 'None';
-	}						
-	$.post(POST_URL, {cmd: cmd, data: data, action: action}, function(data) {
+		data = {};
+	}
+	params = {'cmd': cmd, 'data': data, 'action': action, 'csrfmiddlewaretoken': $.cookie('csrftoken')};
+	$.post(POST_URL, params, function(data) {
 		$('#response').prepend(getCurrentTime() + " - " + data + "<br/>");
 	});
 }

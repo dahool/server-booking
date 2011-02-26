@@ -1,4 +1,21 @@
-import time
+# -*- coding: utf-8 -*-
+"""Copyright (c) 2011, Sergio Gabriel Teves
+All rights reserved.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+"""
 
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
@@ -14,57 +31,91 @@ from django.conf import settings
 
 from common.view.decorators import render
 from common.shortcuts import get_object_or_404
-from common.decorators import superuser_required
+from common.decorators import superuser_required, post_required
 from common.middleware.exceptions import Http403
 
-from rconapp.models import Server
 from q3console.urtconsole import UrtClient
+from rconapp.models import Server
+from rconapp.exceptions import ApplicationError
+from rconapp.commands import RconCommands
 
 class Status(object):
-    pass
+    gametype = ''
+    map = ''
+
+def _get_console(server, check = True):
+    try:
+        console = UrtClient(server.host, server.rconpassword)
+    except:
+        raise ApplicationError(_('Unable to contact server. Server down?'))
+
+    if check:
+        try:
+            # use this instead of check to cache player list and avoid a second call to status
+            console.get_player_list()
+        except:
+            raise ApplicationError(_('Bad rcon password'))
+    
+    return console
 
 @render('rconapp/rcon/home.html')
 def home(request, slug):
     server = get_object_or_404(Server, slug=slug)
-    # TODO: cachear exception en caso de no poder conectar.
-    console = UrtClient(server.host, server.rconpassword)
+    console = _get_console(server)
+    status = Status()
+    status.gametype =console.get_gametype()
+    status.map = console.get_map()
+    cmds = RconCommands(console)
+    return {'server': server,
+            'status': status,
+            'commands': cmds}
+    
+@post_required
+@render('rconapp/rcon/status.html')
+def refresh_status(request, slug):
+    server = get_object_or_404(Server, slug=slug)
+    console = _get_console(server)
     status = Status()
     status.gametype =console.get_gametype()
     status.map = console.get_map()
     return {'server': server,
             'status': status}
-    
-@superuser_required
-@render('webfront/admin/status.html')
-def refresh_status(request):
-    status = None
-    return {'status': status}
-                
-@superuser_required    
-def execute(request):
-    if request.method != 'POST':
-        raise Http403
-    server = request.session.get('server')
-    cfgfile = settings.SERVERS[server]['CFG']
-    try:
-        c = None
-    except Exception, e:
-        res = str(e)
-    else:
-        # get server name to check if we have connection
-        if c.getservername() is None:
-            res = _('<span style=\'color: #F00\'>Can\'t establish RCON link</span>')
+
+@post_required
+@render('rconapp/rcon/clients.html')
+def refresh_clients(request, slug):
+    server = get_object_or_404(Server, slug=slug)
+    console = _get_console(server)
+    players = console.get_player_list()
+    return {'server': server,
+            'clients': players}
+                    
+@post_required
+def execute(request, slug):
+    server = get_object_or_404(Server, slug=slug)
+    console = _get_console(server, False)
+
+    command = request.POST.get('cmd')
+    action = request.POST.get('action')
+    data = request.POST.get('data')
+
+    commands = RconCommands(console)
+    cmd = commands.get_command(command).label
+    if action == 'get':
+        r = commands.get(command, data)
+        if data:
+            res = '%s: %s = %s' % (cmd,data,r)  
         else:
-            command = request.POST.get('cmd')
-            action = request.POST.get('action')
-            data = request.POST.get('data')
-            try:
-                method = getattr(c, command)
-            except:
-                res = _("Unknown command %s" % command)
+            res = '%s: %s' % (cmd,r)
+    elif action == 'set':
+        r = commands.set(command, data)
+        if not r:
+            if data:
+                res = _('Done %s %s' % (cmd, data))  
             else:
-                try:
-                    res = method(data, action)
-                except Exception, e:
-                    res = str(e)
+                res = _('Done %s' % (cmd))
+        else:
+            res = '%s: %s' % (cmd,r)  
+    else:
+        res = _('Unknown')
     return HttpResponse(res)

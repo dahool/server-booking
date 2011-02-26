@@ -1,10 +1,20 @@
 function update(url, div) {
-	$.post(url, function(data) {
+	d = {'csrfmiddlewaretoken': $.cookie('csrftoken')};
+	$.post(url, d, function(data) {
 		$("#" + div).before(data).remove();
 	});
 }
 function do_call_get(url, id, hide) {
 	$.get(url, function(data) {
+		$("#"+id).html(data);
+		if (hide) {
+			$(hide).hide();
+		}
+	})
+}
+function do_call_post(url, id, hide) {
+	d = {'csrfmiddlewaretoken': $.cookie('csrftoken')};
+	$.post(url, d, function(data) {
 		$("#"+id).html(data);
 		if (hide) {
 			$(hide).hide();

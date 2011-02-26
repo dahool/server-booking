@@ -23,6 +23,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'common.middleware.locale.LocaleMiddleware',
+    'rconapp.exceptions.middleware.AppExceptionHandler',
     'django.contrib.messages.middleware.MessageMiddleware',
     'common.middleware.defaultuser.DefaultLoggedUser', # REMOVE
     'django.contrib.auth.middleware.AuthenticationMiddleware',

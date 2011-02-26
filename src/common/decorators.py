@@ -57,3 +57,28 @@ def superuser_required(function=None):
     if function:
         return actual_decorator(function)
     return actual_decorator
+
+def method_passes_test_with_403(test_func):
+    def _dec(view_func):
+        def _checkmethod(request, *args, **kwargs):
+            if test_func(request.method):
+                return view_func(request, *args, **kwargs)
+            else:
+                resp = render_to_response('403.html', context_instance=RequestContext(request))
+                resp.status_code = 403
+                return resp
+        _checkmethod.__doc__ = view_func.__doc__
+        _checkmethod.__dict__ = view_func.__dict__
+        return _checkmethod
+    return _dec
+
+def post_required(function=None):
+    """
+    Check if request was sent using POST. Raise 403 otherwise.
+    """
+    actual_decorator = method_passes_test_with_403(
+        lambda m: m == 'POST'
+    )
+    if function:
+        return actual_decorator(function)
+    return actual_decorator

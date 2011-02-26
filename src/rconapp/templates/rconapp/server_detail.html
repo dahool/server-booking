@@ -3,4 +3,6 @@
 {% block title %}{{ block.super }} | {{server.name}}{% endblock %}
 {% block main_content %}
 <h3>{{server.name}}</h3>
+TODO: some permissions stuff here
+<a href="{% url rcon_home server.slug %}">RCON</a>
 {% endblock %}

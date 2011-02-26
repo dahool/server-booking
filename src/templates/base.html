@@ -9,6 +9,9 @@
 <script type="text/javascript">
 var MEDIA_URL='{% setting "MEDIA_URL" %}';
 </script>
+{% jscript "js/jquery/jquery-1.5.1.min.js" %}
+{% jscript "js/jquery/jquery.cookie.js" %}
+{% jscript "js/base.js" %}
 {% block extra_header %}
 {% endblock %}
 </head>

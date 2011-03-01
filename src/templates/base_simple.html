@@ -1,34 +1,132 @@
 {% extends "base.html" %}
 {% load i18n settingstag media %}
 {% block main_page %}
-    <div id="page">
-      <div id="header">
-      </div>
-      <div id="nav">
-      </div>
-      <div id="teaser">
-      {% block teaser %}
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}      
-      {% endblock %}
-      </div>
-      <div id="main">
-      	{% block central_content %}
-            {% block main_content_header %}{% endblock %}
-            {% block main_content %}{% endblock %}
-        {% endblock %}
-      </div>
-      <div id="footer">
-      <div id="footer-nav">
-		{% block footnav %}
-		{% endblock %}
-      </div>
-      {% block footer %}{% setting "APP_NAME" %} v{% setting "VERSION" %}<br/>Copyright &copy; 2011 SGT Development{% endblock %}
-      </div>
+<div id="layout_wrapper">
+    <div id="layout_top">
+        <div id="site_title">
+            {% block site_title %}
+            <h1><a href="#">Cerulean <span>Elegance</span></a></h1>
+            <h2>A free website template created using XHTML/CSS</h2>            
+            {% endblock %}
+        </div>
     </div>
+    <div id="layout_body_outer">
+    <div id="layout_body">
+        <div id="navigation">
+            <div id="nav1">
+                {% block nagivation %}
+                <ul>
+                    <li class="current_page_item"><a href="index.html">Home</a></li>
+                    <li><a href="blog_post.html">Blog Post</a></li>
+                    <li><a href="style_demo.html">Style Demo</a></li>
+                    <li><a href="archives.html">Archives</a></li>
+                    <li><a href="empty_page.html">Empty Page</a></li>
+                </ul>                
+                {% endblock %}
+                <div class="clearer">&nbsp;</div>
+            </div>
+            <div id="nav2">
+                {% block nagivation2 %}
+                <ul>
+                    <li class="current_page_item"><a href="#">First subpage</a></li>
+                    <li><a href="#">Second subpage</a></li>
+                    <li><a href="#">Third subpage</a></li>
+                    <li><a href="#">And so on..</a></li>
+                </ul>
+                {% endblock %}
+                <div class="clearer">&nbsp;</div>
+            </div>
+        </div>
+        <div id="main">
+            {% block central_content %}
+            <div class="left" id="content_outer">
+                <div id="messages">
+		        {% if messages %}
+		        <ul class="messages">
+		            {% for message in messages %}
+		            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+		            {% endfor %}
+		        </ul>
+		        {% endif %}
+		        </div>      
+                <div id="content">
+                    {% block main_content %}{% endblock %}
+                </div>
+            </div>
+            <div class="right" id="sidebar_outer">
+                <div id="sidebar">
+                    {% block sidebar %}
+                    <div class="box">
+                        <div class="box_title">About</div>
+                        <div class="box_content">
+                            <p>Aenean sit amet dui at felis lobortis dignissim. Pellentesque risus nibh, feugiat in, convallis id, congue ac, sem. Sed tempor neque in quam.</p>
+                        </div>
+                    </div>
+                    {% endblock %}
+                </div>
+            </div>
+            {% endblock %}
+            <div class="clearer">&nbsp;</div>
+        </div>
+
+        <div id="dashboard">
+            <div id="dashboard_inner">
+                {% block dashboard %}
+                <div class="col3 left">
+                    <div class="col3_content">
+                        <div class="col_title">Tincidunt</div>
+                        <ul>
+                            <li><a href="#">Consequat molestie</a></li>
+                            <li><a href="#">Sem justo</a></li>
+                            <li><a href="#">Semper eros</a></li>
+                            <li><a href="#">Magna sed purus</a></li>
+                            <li><a href="#">Tincidunt morbi</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="col3mid left">
+                    <div class="col3_content">
+                        <div class="col_title">Fermentum</div>
+                        <ul>
+                            <li><a href="#">Semper fermentum</a></li>
+                            <li><a href="#">Sem justo</a></li>
+                            <li><a href="#">Magna sed purus</a></li>
+                            <li><a href="#">Tincidunt nisl</a></li>
+                            <li><a href="#">Consequat molestie</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="col3 right">
+                    <div class="col3_content">
+                        <div class="col_title">Praesent</div>
+                        <ul>
+                            <li><a href="#">Semper lobortis</a></li>
+                            <li><a href="#">Consequat molestie</a></li>
+                            <li><a href="#">Magna sed purus</a></li>
+                            <li><a href="#">Sem morbi</a></li>
+                            <li><a href="#">Tincidunt sed</a></li>
+                        </ul>
+                    </div>
+                </div>
+                {% endblock %}
+                <div class="clearer">&nbsp;</div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+    <div id="footer">
+        {% block footer %}
+        <div class="left">
+            {% setting "APP_NAME" %} v{% setting "VERSION" %}<br/>&copy; 2011 SGT Development
+        </div>
+        <div class="right">
+            <a href="http://templates.arcsin.se/">Website template</a> by <a href="http://arcsin.se/">Arcsin</a> 
+        </div>
+        {% endblock %}
+        <div class="clearer">&nbsp;</div>
+    </div>
+</div>
 {% endblock %}																																																																																																																																																						

@@ -6,6 +6,7 @@
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 <link type="image/x-icon" href="{% media 'favicon.ico' %}" rel="icon" />
 <link type="image/x-icon" href="{% media 'favicon.ico' %}" rel="shortcut icon" />
+{% style "css/styles.css" %}
 <script type="text/javascript">
 var MEDIA_URL='{% setting "MEDIA_URL" %}';
 </script>
@@ -15,15 +16,9 @@ var MEDIA_URL='{% setting "MEDIA_URL" %}';
 {% block extra_header %}
 {% endblock %}
 </head>
-<body>
-  <div id="loading"></div>
-  <div id="main_page">
-    {% block main_page %}{% endblock %}
-  <div id="powered">
-    <!-- p><a href="http://www.gnu.org/licenses/gpl-3.0.txt"><img alt="Licensed under GPLv3" src="http://media.vertaal.com.ar/site_media/images/gplv3-88x31.png" style="border: 0pt none; width: 88px; height: 31px;"></a></p-->
-    <!-- <p><a href='http://www.mozilla.com/?from=sfx&amp;uid=0&amp;t=315'><img src='http://sfx-images.mozilla.org/affiliates/Buttons/firefox3/FF3_88x31_g.png' alt='Spread Firefox Affiliate Button' border='0' /></a></p>
-    <p><a href="http://www.djangoproject.com/"><img alt="Django powered" src="http://media.vertaal.com.ar/site_media/images/djangopowered.png" style="border: 0pt none; width: 72px; height: 31px;"></a></p>-->
-  </div>    
-  </div>
+<body id="top">
+<div id="layout_wrapper_outer">
+{% block main_page %}{% endblock %}
+</div>
 </body>
 </html>																																																																																																																																																			

@@ -3,5 +3,13 @@ Servers ABM
 - al agregar server verificar si el rcon es válido
 
 Pagina de RCON
+- rcon audit
 
 Sistema de reservas
+- no puede editar una reserva comenzada
+- no puede reservar un periodo ya existente
+- no puede reservar más de un server por semana
+- no puede editar una reserva + de X veces (3?)
+- audit de reservas
+- validar un tiempo max de reserva
+- validar fechas. reserva hasta con X tiempo de anticipación (15 días?)

@@ -1,23 +1,32 @@
-import time
+# -*- coding: utf-8 -*-
+"""Copyright (c) 2011, Sergio Gabriel Teves
+All rights reserved.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+"""
 
 from django.conf import settings
-from django.shortcuts import render_to_response
-from django.template.context import RequestContext
-from django.db.models import Q
-from django.utils.translation import gettext as _
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
-from django.contrib import messages
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.views.decorators.cache import cache_page
-from django.core import validators
-from django.utils.encoding import smart_unicode
-
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list_detail import object_detail, object_list
+from django.shortcuts import get_object_or_404
 
 from common.view.decorators import render
-from common.shortcuts import get_object_or_404
 from common.decorators import superuser_required, permission_required_with_403
 from common.middleware.exceptions import Http403
 
@@ -43,8 +52,6 @@ def server_create_update(request, slug=None):
     else:
         if slug:
             s = get_object_or_404(Server, slug=slug)
-            if not s.is_maintainer(request.user):
-                raise Http403
             res['server']=s
             form = ServerForm(instance=s)
         else:
@@ -63,13 +70,13 @@ def server_delete(request, slug=None):
 
 #@login_required
 def server_detail(request, slug):
-    s = get_object_or_404(Server, slug=slug)
     return object_detail(request,
                          queryset=Server.objects.all(),
                          template_object_name= 'server',
                          slug=slug)
         
 #@login_required
+@cache_page(60)
 @render('rconapp/server_list.html')
 def server_list(request):
     try:

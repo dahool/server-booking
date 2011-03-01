@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'djangoapp',
     'rconapp',
+    'bookingapp',
 )
 
 ROOT_URLCONF = 'urls'

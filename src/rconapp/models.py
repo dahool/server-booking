@@ -17,11 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
 from django.db.models import permalink
+from django.utils.translation import ugettext_lazy as _
 
 from common.fields import AutoSlugField
 from common.crypto import BCipher
+from django.contrib.auth.models import User
 
 class Server(models.Model):
     slug = AutoSlugField(max_length=50, unique=True, editable=False,
@@ -57,18 +58,18 @@ class Server(models.Model):
         ordering  = ('name',)
         get_latest_by = 'created'    
         permissions = (
-            ("change_map", _("Can change map")),
-            ("change_nextmap", _("Can change next map")),
-            ("change_password", _("Can change password")),
-            ("change_gametype", _("Can change gametype")),
-            ("send_say", _("Can send console message")),
-            ("send_bigtext", _("Can execute bigtext")),
-            ("reload_map", _("Can reloap map")),
-            ("write_console", _("Can write to console")),
-            ("change_cvar", _("Can change cvars")),
-            ("view_online", _("Can view online clients")),
-            ("kick_client", _("Can kick client")),
-            ("slap_client", _("Can slap client")),
+            ("change_map", "Change map"),
+            ("change_nextmap", "Change next map"),
+            ("change_password", "Change password"),
+            ("change_gametype", "Change gametype"),
+            ("send_say", "Send console message"),
+            ("send_bigtext", "Execute bigtext"),
+            ("reload_map", "Reloap map"),
+            ("write_console", "Write to console"),
+            ("change_cvar", "Change cvars"),
+            ("view_online", "View online clients"),
+            ("kick_client", "Kick client"),
+            ("slap_client", "Slap client"),
         )
     
     @property
@@ -77,4 +78,20 @@ class Server(models.Model):
     
     @permalink
     def get_absolute_url(self):
-        return ('server_detail', None, { 'slug': self.slug })    
+        return ('server_detail', None, { 'slug': self.slug })
+    
+class RconAudit(models.Model):
+    user = models.ForeignKey(User)
+    server = models.ForeignKey(Server)
+    ip = models.IPAddressField()
+    action = models.CharField(max_length=255)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+
+    def __unicode__(self):
+        return u'%s - %s - %s' % (self.user.username, self.server.name, self.created)
+
+    def __repr__(self):
+        return '<RconAudit: %s>' % self.user.username
+        
+    class Meta:
+        get_latest_by = 'created'    

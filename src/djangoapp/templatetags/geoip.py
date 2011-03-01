@@ -13,10 +13,10 @@ def geoip(ip):
 @register.inclusion_tag('tags/geoip.html')
 def geolocation(ip):
     data = geoip(ip)
-    try:
-        data['city'] = data['city'].decode('ISO-8859-1')
-    except:
-        data['city'] = None
     if data:
+        try:
+            data['city'] = data['city'].decode('ISO-8859-1')
+        except:
+            data['city'] = None
         data['img'] = 'images/flag/%s.gif' % data['country_code'].lower()
     return {'data': data}

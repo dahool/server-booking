@@ -17,20 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
 
-from django.shortcuts import render_to_response
-from django.template.context import RequestContext
-from django.db.models import Q
-from django.utils.translation import gettext as _
-from django.core.paginator import Paginator, EmptyPage, InvalidPage
-from django.contrib import messages
-from django.http import HttpResponse
 from django.views.decorators.cache import cache_page
-from django.core import validators
-from django.utils.encoding import smart_unicode
-from django.conf import settings
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 
 from common.view.decorators import render
-from common.shortcuts import get_object_or_404
 from common.decorators import superuser_required, post_required
 from common.middleware.exceptions import Http403
 
@@ -38,6 +29,7 @@ from q3console.urtconsole import UrtClient
 from rconapp.models import Server
 from rconapp.exceptions import ApplicationError
 from rconapp.commands import RconCommands
+from rconapp.functions import create_rcon_audit
 
 class Status(object):
     gametype = ''
@@ -82,6 +74,7 @@ def refresh_status(request, slug):
             'status': status}
 
 @post_required
+@cache_page(15)
 @render('rconapp/rcon/clients.html')
 def refresh_clients(request, slug):
     server = get_object_or_404(Server, slug=slug)
@@ -101,6 +94,10 @@ def execute(request, slug):
 
     commands = RconCommands(console)
     cmd = commands.get_command(command).label
+    
+    # audit user action
+    create_rcon_audit(request, server, '%s: %s %s' % (command, action, data))
+    
     if action == 'get':
         r = commands.get(command, data)
         if data:

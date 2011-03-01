@@ -32,6 +32,7 @@ def _get_named_patterns():
 urlpatterns = patterns('',
     url(r'^$', show_url_patterns, name='home'),
     url('^server/', include('rconapp.urls')),
+    url('^booking/', include('bookingapp.urls')),
     url('^admin/', include(admin.site.urls)),
 )
        

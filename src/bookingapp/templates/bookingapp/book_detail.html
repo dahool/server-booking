@@ -1,0 +1,6 @@
+{% extends "base_layout.html" %}
+{% load i18n formtags %}
+{% block title %}{{ block.super }} | Book{% endblock %}
+{% block main_content %}
+<h3>BOOK {{book.server.name}}</h3>
+{% endblock %}

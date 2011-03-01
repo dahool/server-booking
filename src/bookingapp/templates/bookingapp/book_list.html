@@ -1,0 +1,13 @@
+{% extends "base_layout.html" %}
+{% load i18n %}
+{% block title %}{{block.super}} | {% trans "My Bookings" %}{% endblock %}
+{% block main_content %}
+<h3>{% trans "My Bookings" %}</h3>
+<div class="list">
+{% for book in book_list %}
+<div class="entry-list">
+    <p class="title"><a href="{{ book.get_absolute_url }}">{{ book.server.name }}</a></p>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

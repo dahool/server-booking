@@ -1,1 +1,16 @@
-{% extends "base_simple.html" %}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+{% extends "base_simple.html" %}
+{% load i18n gravatar %}
+{% block sidebar %}
+{{super}}
+{% if user.is_authenticated %}
+<div class="box">
+    <div class="box_title">{% gravatar user.email "avatar" 24 %}<div class="avatar_text">{{user.username}}</div></div>
+    <div class="box_content">
+        <ul class="user_menu">
+	        <li><a href="#">enean sit amet dui</a></li>
+	        <li><a href="#">felis lobortis dignissim</a></li>
+        </ul>
+    </div>
+</div>
+{% endif %}
+{% endblock %}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             

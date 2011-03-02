@@ -4,7 +4,17 @@ Servers ABM
 
 Pagina de RCON
 - rcon audit
-
+- reescribir sistema de comandos y generar algún tipo de per-object-permission
+++ comandos para usuarios?
+ map
+ nextmap
+ timelimit
+ matchmode
+ roundtime
+ wave
+ respawntime
+ ?????
+ 
 Sistema de reservas
 - no puede editar una reserva comenzada
 - no puede reservar un periodo ya existente

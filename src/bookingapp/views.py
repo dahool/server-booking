@@ -25,6 +25,8 @@ from common.view.decorators import render
 from bookingapp.models import Book
 from bookingapp.forms import BookForm
 
+from rconapp.models import Server
+
 @login_required
 @render('bookingapp/book_form.html')
 def book_create_update(request, pk=None):
@@ -48,7 +50,11 @@ def book_create_update(request, pk=None):
             res['book']=b
             form = BookForm(instance=b)
         else:
-            form = BookForm(initial={'user': request.user})
+            if request.GET.has_key('s'):
+                s = get_object_or_404(Server, slug=request.GET['s'])
+                form = BookForm(initial={'user': request.user, 'server': s})
+            else:
+                form = BookForm(initial={'user': request.user})
         res['form'] = form 
     return res
 

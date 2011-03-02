@@ -1,6 +1,10 @@
 {% extends "base_layout.html" %}
 {% load i18n formtags %}
 {% block title %}{{ block.super }} | {%if book %}{% trans "Edit Book"%}{{book.server.name}}{%else%}{% trans "Create Book" %}{%endif%}{% endblock %}
+{% block extra_header %}
+{{super}}
+{{ form.media }}
+{% endblock %}
 {% block main_content %}
 <h3>{%if book %}{% trans "Edit Book"%}{{book.server.name}}{%else%}{% trans "Create Book" %}{%endif%}</h3>
 <div class="centered_form">

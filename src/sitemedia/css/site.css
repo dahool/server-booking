@@ -14,3 +14,7 @@
 .user_menu a {
     text-decoration: none;	
 }
+fieldset {
+    border: none !important;
+}
+

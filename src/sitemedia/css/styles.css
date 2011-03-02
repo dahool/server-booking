@@ -158,11 +158,11 @@ input.button {
 	padding: 6px;
 	width: auto;
 }
-input:focus,input:active,textarea:focus,textarea:active,select:focus,select:active,input.button:hover,input.button:focus {background: #FFFFF5;}
+/*input:focus,input:active,textarea:focus,textarea:active,select:focus,select:active,input.button:hover,input.button:focus {background: #FFFFF5;}
 input.button:hover, input.button:focus {
 	color: #123;
 	cursor: pointer;
-}
+}*/
 
 textarea {overflow: auto;}
 

@@ -18,10 +18,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from django import forms
+from django.utils.translation import ugettext_lazy as _
+
+from djangoui.widgets import uiSplitDateTimeWidget
+
 from models import Book
+from djangoui.extras.widgets import SelectTimeWidget
 
 class BookForm(forms.ModelForm):
     
+    date_start = forms.SplitDateTimeField(('%d/%m/%Y',),('%H:%M',),
+                                    widget=uiSplitDateTimeWidget(date_format="%d/%m/%Y",
+                                                                 time_widget=SelectTimeWidget(show_seconds=False, minute_step=15)),
+                                    label=_('Check-in'),
+                                    required=True)
+    date_end = forms.SplitDateTimeField(('%d/%m/%Y',),('%H:%M',),
+                                    widget=uiSplitDateTimeWidget(date_format="%d/%m/%Y",
+                                                                 time_widget=SelectTimeWidget(show_seconds=False, minute_step=15)),
+                                    label=_('Check-out'),
+                                    required=True)
+            
     class Meta:
         model = Book
         #exclude = ("password", )

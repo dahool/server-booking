@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from django.views.decorators.cache import cache_page
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+from django.utils.translation import ugettext as _
 
 from common.view.decorators import render
 from common.decorators import superuser_required, post_required

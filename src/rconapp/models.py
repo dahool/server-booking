@@ -24,6 +24,11 @@ from common.fields import AutoSlugField
 from common.crypto import BCipher
 from django.contrib.auth.models import User
 
+class ServerManager(models.Manager):
+    
+    def all_online(self):
+        return self.filter(offline=False)
+    
 class Server(models.Model):
     slug = AutoSlugField(max_length=50, unique=True, editable=False,
                             prepopulate_from="name", force_update=False)    
@@ -34,6 +39,9 @@ class Server(models.Model):
     admin = models.EmailField(verbose_name=_('Contact e-mail'))
     created = models.DateTimeField(auto_now_add=True, editable=False)
     updated = models.DateTimeField(auto_now=True, auto_now_add=True, editable=False)
+    offline = models.BooleanField(default=False, editable=False)
+    
+    objects = ServerManager()
     
     def __unicode__(self):
         return u'%s [%s:%d]' % (self.name, self.ip, self.port)

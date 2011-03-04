@@ -9,6 +9,7 @@ def applicationErrorResponse(request, message, template_name='error.html'):
     t = loader.get_template(template_name)
     c = Context({
         'request': request,
+        'message': message,
     })
     return HttpResponseServerError(t.render(c))
 

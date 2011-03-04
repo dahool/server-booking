@@ -8,3 +8,6 @@
 #        'HOST': '166.40.231.124',
 #    },
 #}
+
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG

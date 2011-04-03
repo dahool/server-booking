@@ -1,0 +1,5 @@
+import datetime
+
+MAX_BOOKING_ADVANCE=datetime.timedelta(weeks=2)
+MAX_BOOKING_TIME=datetime.timedelta(hours=2)
+MIN_BOOKING_TIME=datetime.timedelta(hours=1)

@@ -6,7 +6,19 @@
     <div class="post_title"><h1>{{server.name}}{% if server.offline %}<span>(offline)</span>{% endif %}</h1></div>
     <div class="post_date">{% trans "Address:" %} {{server.ip}}:{{server.port}}</div>
     <div class="post_body">
-    // TODO: agregar una agenda con reservas existentes
+    <ul>
+    {% for book in server.bookings.all_active %}
+    <li>    
+        {% with book.user as user %}
+        {% with book.date_start as datestart %}
+        {% with book.date_end as dateend %}
+        {% blocktrans %}Booked by {{user}} from {{datestart}} to {{dateend}}{%endblocktrans%}
+        {% endwith %}
+        {% endwith %}
+        {% endwith %}
+    </li>
+    {% endfor %}
+    </ul>
     </div>
     <div class="post_meta">
         // TODO: ver permisos

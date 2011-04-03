@@ -51,6 +51,7 @@ class Book(models.Model):
         
     class Meta:
         get_latest_by = 'created'
+        ordering = ['date_start']
             
     @permalink
     def get_absolute_url(self):

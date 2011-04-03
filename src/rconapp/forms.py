@@ -26,7 +26,7 @@ PASS_DEFAULT = '**********'
 
 class ServerForm(forms.ModelForm):
 
-    password = forms.RegexField(label=_("Password"),
+    password = forms.RegexField(label=_("RCON Password"),
                                 widget=widgets.PasswordInput(attrs={'autocomplete':'off'}),
                                 required=True,
                                 max_length=50,

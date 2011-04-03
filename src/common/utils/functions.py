@@ -1,6 +1,14 @@
 from django.utils.translation import ungettext_lazy as _
 import re
 
+def timeDeltaToSeconds(delta):
+    seconds = 0
+    if delta.days != 0:
+        seconds += delta.days * 86400
+    if delta.seconds != 0:
+        seconds += delta.seconds
+    return seconds
+
 def minutes2int(mins):
     if re.match('^[0-9.]+$', mins):
         return round(float(mins), 2)

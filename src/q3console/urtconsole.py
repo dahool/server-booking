@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import re
-from q3console.pyiourt import PyIoUrt as Console
+from pyiourt import PyIoUrt as Console
     
 class UrtClient(object):
 
@@ -147,3 +147,8 @@ class UrtClient(object):
             return self._gametype[c] 
         return 'Unknown'
         
+if __name__ == '__main__':
+    host = ''
+    password = ''
+    client = UrtClient(host, password)
+    client.set_password('')

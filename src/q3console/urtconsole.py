@@ -77,6 +77,10 @@ class UrtClient(object):
         if data:
             return data.encode('utf_8').strip()
         return data
+
+    def write(self, data):
+        cmd, data = self.console.rcon(self._normalize(data))
+        return data
     
     def get_cvar(self, data):
         try:
@@ -85,11 +89,7 @@ class UrtClient(object):
             return None
 
     def set_cvar(self, name, value):
-        data = self._write('set %s %s' % (self._normalize(name), self._normalize(value)))
-        return data
-    
-    def write(self, data):
-        cmd, data = self.console.rcon(self._normalize(data))
+        data = self.write('set %s %s' % (self._normalize(name), self._normalize(value)))
         return data
     
     def cyclemap(self):
